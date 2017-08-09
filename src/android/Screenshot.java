@@ -189,7 +189,7 @@ public class Screenshot extends CordovaPlugin {
         });
     }
 
-     public synchronized void getScreenshotAsURISync() throws JSONException{
+    public void getScreenshotAsURISync() throws JSONException{
         mQuality = (Integer) mArgs.get(0);
         
         Runnable r = new Runnable(){
@@ -198,6 +198,7 @@ public class Screenshot extends CordovaPlugin {
                 Bitmap bitmap = getBitmap();
                 if (bitmap != null) {
                     getScreenshotAsURI(bitmap, mQuality);
+                    webView.loadUrl("javascript:alert('getScreenshotAsURI');");
                 }
                 synchronized (this) { this.notify(); }
             }
@@ -211,6 +212,12 @@ public class Screenshot extends CordovaPlugin {
                 mCallbackContext.error(e.getMessage());
             }
         }
+
+        cordova.getThreadPool().execute(new Runnable() {
+            public void run() {
+                webView.loadUrl("javascript:alert('hello');");
+            }
+        });
     }
 
     @Override
