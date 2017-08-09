@@ -189,7 +189,7 @@ public class Screenshot extends CordovaPlugin {
         });
     }
 
-     public void getScreenshotAsURISync() throws JSONException{
+     public synchronized void getScreenshotAsURISync() throws JSONException{
         mQuality = (Integer) mArgs.get(0);
         
         Runnable r = new Runnable(){
