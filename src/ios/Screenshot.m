@@ -26,7 +26,7 @@ CGFloat AACStatusBarHeight()
 {
 	UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
 	CGRect rect = [keyWindow bounds];
-	CGRect smallBounds = CGRectMake (0,AACStatusBarHeight(),rect.size.width,rect.size.height);
+	CGRect smallBounds = CGRectMake (0,20,rect.size.width,rect.size.height);
 	UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextClipToRect(context,smallBounds);
