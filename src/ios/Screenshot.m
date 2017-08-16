@@ -16,6 +16,12 @@
 
 @synthesize webView;
 
+CGFloat AACStatusBarHeight()
+{
+    CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
+    return MIN(statusBarSize.width, statusBarSize.height);
+}
+
 - (UIImage *)getScreenshot
 {
 	UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
@@ -24,7 +30,14 @@
 	[keyWindow drawViewHierarchyInRect:keyWindow.bounds afterScreenUpdates:NO];
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	return img;
+	CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage,rect);
+	CGRect smallBounds = CGRectMake (0,AACStatusBarHeight(),rect.size.width,rect.size.height);
+	UIGraphicsBeginImageContext(smallBounds.size);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextDrawImage(context, smallBounds, subImageRef);
+	UIImage* cropped = [UIImage imageWithCGImage:subImageRef];
+	UIGraphicsEndImageContext();
+	return cropped;
 }
 
 - (void)saveScreenshot:(CDVInvokedUrlCommand*)command
