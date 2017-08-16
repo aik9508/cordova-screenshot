@@ -26,16 +26,12 @@ CGFloat AACStatusBarHeight()
 {
 	UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
 	CGRect rect = [keyWindow bounds];
-	UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
-	[keyWindow drawViewHierarchyInRect:keyWindow.bounds afterScreenUpdates:NO];
-	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage,rect);
 	CGRect smallBounds = CGRectMake (0,AACStatusBarHeight(),rect.size.width,rect.size.height);
-	UIGraphicsBeginImageContext(smallBounds.size);
+	UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextDrawImage(context, smallBounds, subImageRef);
-	UIImage* cropped = [UIImage imageWithCGImage:subImageRef];
+	[keyWindow drawViewHierarchyInRect:keyWindow.bounds afterScreenUpdates:NO];
+	CGContextClipToRect(context,smallBounds);
+	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return cropped;
 }
