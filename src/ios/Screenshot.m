@@ -72,7 +72,8 @@ CGFloat AACStatusBarHeight()
 	NSData *imageData = UIImageJPEGRepresentation(image,[quality floatValue]);
 	NSString *base64Encoded = [imageData base64EncodedStringWithOptions:0];
 	NSDictionary *jsonObj = @{
-	    @"URI" : [NSString stringWithFormat:@"data:image/jpeg;base64,%@", base64Encoded]
+	    @"URI" : [NSString stringWithFormat:@"data:image/jpeg;base64,%@", base64Encoded],
+	    @"StatusBarHeight" : @(AACStatusBarHeight())
 	};
 	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonObj];
 	[self.commandDelegate sendPluginResult:pluginResult callbackId:[command callbackId]];
