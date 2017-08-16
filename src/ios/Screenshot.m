@@ -33,7 +33,7 @@ CGFloat AACStatusBarHeight()
 	CGContextClipToRect(context,smallBounds);
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	return cropped;
+	return img;
 }
 
 - (void)saveScreenshot:(CDVInvokedUrlCommand*)command
