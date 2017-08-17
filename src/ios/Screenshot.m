@@ -46,7 +46,7 @@ CGFloat AACStatusBarHeight()
 	UIGraphicsEndImageContext();
 	CGRect smallRect = CGRectMake (0,200,rect.size.width,rect.size.height);
 	CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage, smallRect);
-	CGRect smallBounds = CGRectMake(0,0,CGImageGetWidth(smallRect),CGImageGetHeight(smallRect));
+	CGRect smallBounds = CGRectMake(0,0,CGImageGetWidth(subImageRef),CGImageGetHeight(subImageRef));
 	UIGraphicsBeginImageContext(smallBounds.size);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextDrawImage(context,smallBounds,subImageRef);
