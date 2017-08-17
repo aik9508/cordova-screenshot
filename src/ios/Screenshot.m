@@ -22,18 +22,40 @@ CGFloat AACStatusBarHeight()
     return MIN(statusBarSize.width, statusBarSize.height);
 }
 
+-(UIImage*)getSubImage:(CGRect)rect  
+{  
+    CGImageRef subImageRef = CGImageCreateWithImageInRect(self.CGImage, rect);  
+    CGRect smallBounds = CGRectMake(0, 0, CGImageGetWidth(subImageRef), CGImageGetHeight(subImageRef));  
+      
+    UIGraphicsBeginImageContext(smallBounds.size);  
+    CGContextRef context = UIGraphicsGetCurrentContext();  
+    CGContextDrawImage(context, smallBounds, subImageRef);  
+    UIImage* smallImage = [UIImage imageWithCGImage:subImageRef];  
+    UIGraphicsEndImageContext();  
+      
+    return smallImage;  
+}  
+
 - (UIImage *)getScreenshot
 {
 	UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
 	CGRect rect = [keyWindow bounds];
-	CGRect smallBounds = CGRectMake (0,200,rect.size.width,rect.size.height);
 	UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0);
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextClipToRect(context,smallBounds);
 	[keyWindow drawViewHierarchyInRect:keyWindow.bounds afterScreenUpdates:NO];
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	return img;
+	CGRect smallRect = CGRectMake (0,200,rect.size.width,rect.size.height);
+	UIImage cropped = [img getSubImage:smallRect]
+	// CGRect smallRect = CGRectMake (0,200,rect.size.width,rect.size.height);
+	// CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage, smallRect);
+	// CGRect smallBounds = CGRectMake(0,0,CGImageGetWidth(smallRect),CGImageGetHeight(smallRect));
+	// UIGraphicsBeginImageContext(smallBounds.size);
+	// CGContextRef context = UIGraphicsGetCurrentContext();
+	// CGContextDrawImage(context,smallBounds,subImageRef);
+	// UIImage* cropped = [UIImage imageWithCGImage:subImageRef];
+	// UIGraphicsEndImageContext();  
+
+	return cropped;
 }
 
 - (void)saveScreenshot:(CDVInvokedUrlCommand*)command
