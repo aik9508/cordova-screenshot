@@ -45,15 +45,13 @@ CGFloat AACStatusBarHeight()
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	CGRect smallRect = CGRectMake (0,200,rect.size.width,rect.size.height);
-	UIImage cropped = [img getSubImage:smallRect]
-	// CGRect smallRect = CGRectMake (0,200,rect.size.width,rect.size.height);
-	// CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage, smallRect);
-	// CGRect smallBounds = CGRectMake(0,0,CGImageGetWidth(smallRect),CGImageGetHeight(smallRect));
-	// UIGraphicsBeginImageContext(smallBounds.size);
-	// CGContextRef context = UIGraphicsGetCurrentContext();
-	// CGContextDrawImage(context,smallBounds,subImageRef);
-	// UIImage* cropped = [UIImage imageWithCGImage:subImageRef];
-	// UIGraphicsEndImageContext();  
+	CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage, smallRect);
+	CGRect smallBounds = CGRectMake(0,0,CGImageGetWidth(smallRect),CGImageGetHeight(smallRect));
+	UIGraphicsBeginImageContext(smallBounds.size);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextDrawImage(context,smallBounds,subImageRef);
+	UIImage* cropped = [UIImage imageWithCGImage:subImageRef];
+	UIGraphicsEndImageContext();  
 
 	return cropped;
 }
