@@ -44,10 +44,10 @@ CGFloat AACStatusBarHeight()
 	[keyWindow drawViewHierarchyInRect:keyWindow.bounds afterScreenUpdates:NO];
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	CGRect smallRect = CGRectMake (15,15,rect.size.width,rect.size.height);
+	CGRect smallRect = CGRectMake (0,AACStatusBarHeight(),rect.size.width,rect.size.height);
 
 	CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage, smallRect);
-	CGRect smallBounds = CGRectMake(0,0,rect.size.width-15,rect.size.height-15);
+	CGRect smallBounds = CGRectMake(0,0,CGImageGetWidth(subImageRef), CGImageGetHeight(subImageRef));
 
 	UIGraphicsBeginImageContext(smallBounds.size);
 	CGContextRef context = UIGraphicsGetCurrentContext();
