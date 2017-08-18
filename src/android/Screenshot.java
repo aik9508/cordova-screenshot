@@ -213,11 +213,6 @@ public class Screenshot extends CordovaPlugin {
             }
         }
 
-        cordova.getThreadPool().execute(new Runnable() {
-            public void run() {
-                webView.loadUrl("javascript:alert('hello');");
-            }
-        });
     }
 
     @Override
