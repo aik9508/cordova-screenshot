@@ -44,6 +44,7 @@ CGFloat AACStatusBarHeight()
 	[keyWindow drawViewHierarchyInRect:keyWindow.bounds afterScreenUpdates:NO];
 	UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
+	
 	CGRect smallRect = CGRectMake (0,AACStatusBarHeight()*img.scale,rect.size.width*img.scale,rect.size.height*img.scale);
 
 	CGImageRef subImageRef = CGImageCreateWithImageInRect(img.CGImage, smallRect);
@@ -90,8 +91,7 @@ CGFloat AACStatusBarHeight()
 	NSData *imageData = UIImageJPEGRepresentation(image,[quality floatValue]);
 	NSString *base64Encoded = [imageData base64EncodedStringWithOptions:0];
 	NSDictionary *jsonObj = @{
-	    @"URI" : [NSString stringWithFormat:@"data:image/jpeg;base64,%@", base64Encoded],
-	    @"StatusBarHeight" : @(AACStatusBarHeight())
+	    @"URI" : [NSString stringWithFormat:@"data:image/jpeg;base64,%@", base64Encoded]
 	};
 	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonObj];
 	[self.commandDelegate sendPluginResult:pluginResult callbackId:[command callbackId]];
